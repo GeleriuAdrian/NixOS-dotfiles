@@ -1,0 +1,38 @@
+* {
+    font-family: JetBrains Mono;
+    font-size: 13px;
+}
+
+window {
+    background-color: rgba(10, 10, 15, 0.9);
+    border: 1px solid rgba(170, 238, 102, 0.3);
+    border-radius: 12px;
+}
+
+#input {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: none;
+    border-radius: 8px;
+    color: #e0e0e0;
+    padding: 8px 12px;
+    margin: 8px;
+}
+
+#inner-box {
+    background: transparent;
+}
+
+#outer-box {
+    padding: 8px;
+}
+
+#entry {
+    padding: 6px 12px;
+    border-radius: 6px;
+    color: #888;
+}
+
+#entry:selected {
+    background-color: rgba(170, 238, 102, 0.15);
+    color: #aaee66;
+}
