@@ -186,21 +186,13 @@
 	appimage-run
 	xdg-utils
 
-    # Terminal & launcher
-    wofi
-	starship
-
     # Hyprland ecosystem
-    waybar
-    hyprpaper
-    mako
     grimblast
     libnotify
 	ddcutil
 
     # File management
     kdePackages.dolphin
-    udisks2
     loupe
     mpv
 
@@ -217,11 +209,6 @@
     kdePackages.breeze
     nwg-look
 	bibata-cursors
-	
-    # Fonts
-    noto-fonts
-    noto-fonts-color-emoji
-    jetbrains-mono
 
     # Browser & mail
     librewolf
@@ -237,14 +224,9 @@
     zed-editor
 
     # Gaming
-    steam
     gamemode
     mangohud
     radeontop
-
-    #Terminal
-    alacritty
-    fish
   ];
 
   # ============================================================

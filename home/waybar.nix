@@ -25,11 +25,11 @@
 
             "hyprland/window" = {
                 format = "{}";
-                max-length = 50;
+                max-length = 70;
             };
 
             "custom/brightness" = {
-                format = "☀️ {}%";
+                format = "󰃠 {}%";
                 interval = 10;
                 exec = "ddcutil getvcp 10 | grep -oP '(?<=current value =\\s{1,5})\\d+'";
                 on-scroll-up = "ddcutil setvcp 10 + 5 --noverify";
@@ -58,7 +58,7 @@
         style = ''
             * {
                 font-family: "JetBrainsMono Nerd Font";
-                font-size: 13px;
+                font-size: 18px;
                 border: none;
                 border-radius: 0;
             }
@@ -83,8 +83,9 @@
             }
 
             #clock {
-                color: #e0e0e0;
+                color: #aaee66;
                 padding: 0 16px;
+                font-weight: bold;
             }
 
             #custom-brightness {
