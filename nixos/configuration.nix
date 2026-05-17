@@ -20,7 +20,7 @@
     	./home/waybar.nix
     	./home/hyprland.nix
     	./home/hyprpaper.nix
-
+		./home/theme.nix
     ];
   };
   home-manager.backupFileExtension = "backup";
@@ -92,6 +92,7 @@
     ];
   };
 
+  security.pam.services.greetd.enableGnomeKeyring = true;
   services.gnome.gnome-keyring.enable = true;
 
   # ============================================================

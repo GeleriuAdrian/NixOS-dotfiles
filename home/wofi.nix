@@ -5,22 +5,21 @@
         enable = true;
         style = ''
             * {
-                font-family: JetBrains Mono;
-                font-size: 13px;
+                font-family: ${config.theme.font};
+                font-size: ${toString config.theme.termFontSize}px;
             }
 
             window {
-                background-color: rgba(10, 10, 15, 0.9);
-                border: 1px solid rgba(170, 238, 102, 0.3);
-                border-radius: 12px;
+                background-color: ${config.theme.bgSolid};
+                border: 1px solid ${config.theme.border};
+                border-radius: ${toString config.theme.rounding}px;
             }
 
             #input {
                 background-color: rgba(255, 255, 255, 0.05);
                 border: none;
-                border-bottom: 1px solid rgba(170, 238, 102, 0.2);
-                border-radius: 8px;
-                color: #e0e0e0;
+                border-radius: ${toString config.theme.rounding}px;
+                color: ${config.theme.fg};
                 padding: 8px 12px;
                 margin: 8px;
             }
@@ -36,12 +35,14 @@
             #entry {
                 padding: 6px 12px;
                 border-radius: 6px;
-                color: #666;
+                color: ${config.theme.fgDim};
             }
 
             #entry:selected {
                 background-color: rgba(170, 238, 102, 0.08);
-                color: #cce899;
+                color: ${config.theme.accentSoft};
+                border: none;
+                outline: none;
             }
         '';
     };

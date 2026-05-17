@@ -9,9 +9,6 @@
             exec-once = [
                 "/run/current-system/sw/bin/gnome-keyring-daemon --start --components=secrets"
                 "/run/current-system/sw/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
-                "waybar"
-                "hyprpaper"
-                "mako"
             ];
 
             env = [
@@ -33,8 +30,8 @@
                 gaps_in = 4;
                 gaps_out = 8;
                 border_size = 2;
-                "col.active_border" = "rgba(aaee66ff) rgba(88cc44ff) 45deg";
-                "col.inactive_border" = "rgba(1a1a2eff)";
+                "col.active_border" = "${config.theme.borderActive} rgba(88cc44ff) 45deg";
+                "col.inactive_border" = "${config.theme.borderInactive}";
                 layout = "master";
                 resize_on_border = true;
             };
@@ -45,7 +42,7 @@
             };
 
             decoration = {
-                rounding = 10;
+                rounding = config.theme.rounding;
                 active_opacity = 1.0;
                 inactive_opacity = 0.9;
                 blur = {
@@ -117,8 +114,8 @@
                 "ALT, Tab, cyclenext"
                 "ALT SHIFT, Tab, cyclenext, prev"
                 ", Print, exec, grimblast copy area"
-                "$mod, L, exec, swaylock"
                 "$mod SHIFT, F, fullscreenstate, 0 2"
+                "$mod SHIFT, P, exec, wlogout"
             ];
 
             bindl = [

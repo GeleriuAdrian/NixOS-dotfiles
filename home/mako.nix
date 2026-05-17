@@ -4,14 +4,14 @@
     services.mako = {
         enable = true;
         settings = {
-            background-color = "#0a0a0fcc";
-            text-color = "#e0e0e0";
-            border-color = "#aaee66";
+            background-color = "${config.theme.bgSolid}";
+            text-color = "${config.theme.fg}";
+            border-color = "${config.theme.accent}";
             border-size = 2;
-            border-radius = 8;
+            border-radius = config.theme.rounding;
             padding = "12";
             margin = "8";
-            font = "JetBrains Mono 11";
+            font = "${config.theme.font} 11";
             default-timeout = 5000;
         };
     };

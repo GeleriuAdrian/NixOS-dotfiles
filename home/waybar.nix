@@ -25,7 +25,6 @@
 
             "hyprland/window" = {
                 format = "{}";
-                max-length = 70;
             };
 
             "custom/brightness" = {
@@ -57,45 +56,46 @@
 
         style = ''
             * {
-                font-family: "JetBrainsMono Nerd Font";
-                font-size: 18px;
+                font-family: "${config.theme.font}";
+                font-size: ${toString config.theme.fontSize}px;
                 border: none;
                 border-radius: 0;
             }
 
             window#waybar {
-                background: rgba(10, 10, 15, 0.4);
-                color: #e0e0e0;
+                background: ${config.theme.bgAlpha};
+                color: ${config.theme.fg};
             }
 
             #workspaces button {
                 padding: 0 8px;
-                color: #555;
+                color: ${config.theme.fgDim};
                 background: transparent;
             }
 
             #workspaces button.active {
-                color: #aaee66;
+                color: ${config.theme.accent};
             }
 
             #window {
-                color: #aaee66;
+                color: ${config.theme.accent};
             }
 
             #clock {
-                color: #aaee66;
+                color: ${config.theme.accent};
                 padding: 0 16px;
-                font-weight: bold;
             }
 
             #custom-brightness {
                 margin-right: 6px;
                 padding: 0 10px;
+                color: ${config.theme.fg};
             }
 
             #pulseaudio {
                 margin-left: 6px;
                 padding: 0 10px;
+                color: ${config.theme.fg};
             }
         '';
     };
