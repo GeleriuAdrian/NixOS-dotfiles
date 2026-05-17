@@ -1,0 +1,18 @@
+{ config, pkgs, ... }:
+
+{
+    services.mako = {
+        enable = true;
+        settings = {
+            background-color = "#0a0a0fcc";
+            text-color = "#e0e0e0";
+            border-color = "#aaee66";
+            border-size = 2;
+            border-radius = 8;
+            padding = "12";
+            margin = "8";
+            font = "JetBrains Mono 11";
+            default-timeout = 5000;
+        };
+    };
+}

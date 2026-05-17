@@ -4,7 +4,26 @@
   imports = [
     ./hardware-configuration.nix
     <musnix>
-  ];
+    <home-manager/nixos>
+    ];
+
+  home-manager.users.ady = { pkgs, ... }: {
+    home.stateVersion = "25.11";
+    home.username = "ady";
+    home.homeDirectory = "/home/ady";
+
+    imports = [
+    	./home/alacritty.nix
+    	./home/fish.nix
+    	./home/mako.nix
+    	./home/wofi.nix
+    	./home/waybar.nix
+    	./home/hyprland.nix
+    	./home/hyprpaper.nix
+
+    ];
+  };
+  home-manager.backupFileExtension = "backup";
 
   # ============================================================
   # BOOT
