@@ -23,7 +23,7 @@
             temps = "sensors";
             update = "sudo nix-channel --update && sudo nixos-rebuild switch";
             clean = "sudo nix-collect-garbage -d";
-            dotpush = "cd ~/dotfiles && cp /etc/nixos/configuration.nix ~/dotfiles/nixos/ && cp /etc/nixos/home/hyprland.nix ~/dotfiles/home/ && cp /etc/nixos/home/waybar.nix ~/dotfiles/home/ && cp /etc/nixos/home/fish.nix ~/dotfiles/home/ && cp /etc/nixos/home/mako.nix ~/dotfiles/home/ && cp /etc/nixos/home/wofi.nix ~/dotfiles/home/ && cp /etc/nixos/home/hyprpaper.nix ~/dotfiles/home/ && cp /etc/nixos/home/alacritty.nix ~/dotfiles/home/ && git add . && git commit -m \"update dotfiles\" && git push";
+            dotpush = "cd ~/dotfiles && cp /etc/nixos/configuration.nix ~/dotfiles/nixos/ && cp /etc/nixos/hardware-configuration.nix ~/dotfiles/nixos/ && cp /etc/nixos/home/alacritty.nix ~/dotfiles/home/ && cp /etc/nixos/home/hyprland.nix ~/dotfiles/home/ && cp /etc/nixos/home/hyprpaper.nix ~/dotfiles/home/ && cp /etc/nixos/home/waybar.nix ~/dotfiles/home/ && cp /etc/nixos/home/fish.nix ~/dotfiles/home/ && cp /etc/nixos/home/mako.nix ~/dotfiles/home/ && cp /etc/nixos/home/wofi.nix ~/dotfiles/home/ && git add . && git commit -m \"update dotfiles\" && git push";
         };
     };
 
