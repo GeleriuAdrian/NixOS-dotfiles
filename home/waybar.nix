@@ -4,14 +4,24 @@
     programs.waybar = {
         enable = true;
         settings = [{
-            layer = "bottom";
+            layer = "top";
             position = "top";
             height = 36;
-            spacing = 4;
+            width = 1440;
+            margin-top = 8;
+            margin-left = 240;
+            margin-right = 240;
+            exclusive = true;
 
-            modules-left = [ "hyprland/workspaces" ];
+            modules-left = [ "custom/power" "hyprland/workspaces" ];
             modules-center = [ "hyprland/window" ];
-            modules-right = [ "custom/brightness" "pulseaudio" "clock" ];
+            modules-right = [ "custom/brightness" "clock" ];
+
+            "custom/power" = {
+                format = "⏻";
+                on-click = "shutdown now";
+                tooltip = false;
+            };
 
             "hyprland/workspaces" = {
                 format = "{icon}";
@@ -36,18 +46,6 @@
                 tooltip = false;
             };
 
-            pulseaudio = {
-                format = "{icon} {volume}%";
-                format-muted = "󰝟 muted";
-                format-icons = {
-                    default = [ "󰕿" "󰖀" "󰕾" ];
-                };
-                on-scroll-up = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+ --limit 1.5";
-                on-scroll-down = "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-";
-                on-click = "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle";
-                tooltip = false;
-            };
-
             clock = {
                 format = "{:%H:%M}";
                 format-alt = "{:%A, %d %B %Y}";
@@ -63,8 +61,19 @@
             }
 
             window#waybar {
-                background: ${config.theme.bgAlpha};
+            	border-radius: ${toString config.theme.rounding}px;                
+            	background: ${config.theme.bgAlpha};
                 color: ${config.theme.fg};
+            }
+
+            #custom-power {
+                color: ${config.theme.fgDim};
+                padding: 0 12px;
+                font-size: 18px;
+            }
+            
+            #custom-power:hover {
+                color: #ff5555;
             }
 
             #workspaces button {
@@ -84,16 +93,12 @@
             #clock {
                 color: ${config.theme.accent};
                 padding: 0 16px;
+                font-size: 22px;
+                font-weight: bold;
             }
 
             #custom-brightness {
                 margin-right: 6px;
-                padding: 0 10px;
-                color: ${config.theme.fg};
-            }
-
-            #pulseaudio {
-                margin-left: 6px;
                 padding: 0 10px;
                 color: ${config.theme.fg};
             }

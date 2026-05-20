@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
     wayland.windowManager.hyprland = {
@@ -9,6 +9,7 @@
             exec-once = [
                 "/run/current-system/sw/bin/gnome-keyring-daemon --start --components=secrets"
                 "/run/current-system/sw/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
+                "gsettings set org.gnome.desktop.interface icon-theme Papirus-Dark"
             ];
 
             env = [
@@ -27,10 +28,10 @@
             };
 
             general = {
-                gaps_in = 4;
-                gaps_out = 8;
-                border_size = 2;
-                "col.active_border" = "${config.theme.borderActive} rgba(88cc44ff) 45deg";
+                gaps_in = config.theme.gapsIn;
+                gaps_out = config.theme.gapsOut;
+                border_size = config.theme.borderSize;
+                "col.active_border" = "${config.theme.borderActive} rgba(${lib.removePrefix "#" config.theme.accentDim}ff) 45deg";
                 "col.inactive_border" = "${config.theme.borderInactive}";
                 layout = "master";
                 resize_on_border = true;
@@ -44,18 +45,25 @@
             decoration = {
                 rounding = config.theme.rounding;
                 active_opacity = 1.0;
-                inactive_opacity = 0.9;
+                inactive_opacity = config.theme.inactiveOpacity;
                 blur = {
                     enabled = true;
-                    size = 6;
-                    passes = 3;
+                    size = config.theme.blurSize;
+                    passes = config.theme.blurPasses;
                     new_optimizations = true;
+                    xray = false;
+                    noise = 0.02;
+                    contrast = 1.0;
+                    brightness = 0.8;
+                    vibrancy = config.theme.vibrancy;
+                    vibrancy_darkness = 0.1;
                 };
                 shadow = {
                     enabled = true;
-                    range = 15;
-                    render_power = 3;
-                    color = "rgba(0, 0, 0, 0.4)";
+                    range = config.theme.shadowRange;
+                    render_power = config.theme.shadowPower;
+                    color = "${config.theme.shadowColor}";
+                    offset = "${config.theme.shadowOffset}";
                 };
             };
 
@@ -79,6 +87,10 @@
             ];
 
             "$mod" = "SUPER";
+            bindm = [
+                "$mod, mouse:272, movewindow"
+                "$mod, mouse:273, resizewindow"
+            ];
 
             bind = [
                 "$mod, Q, exec, alacritty"
@@ -116,12 +128,20 @@
                 ", Print, exec, grimblast copy area"
                 "$mod SHIFT, F, fullscreenstate, 0 2"
                 "$mod SHIFT, P, exec, wlogout"
+                ", XF86Explorer, exec, thunar"
+               	", XF86WWW, exec, librewolf"
+               	", XF86Mail, exec, thunderbird"
+               	", XF86Calculator, exec, wofi --show calc -modi calc --no-residual"
             ];
 
             bindl = [
-                ", XF86AudioRaiseVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+"
-                ", XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
-                ", XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+				", XF86AudioRaiseVolume, exec, swayosd-client --output-volume raise"
+                ", XF86AudioLowerVolume, exec, swayosd-client --output-volume lower"
+                ", XF86AudioMute, exec, swayosd-client --output-volume mute-toggle"
+				", XF86AudioPlay, exec, playerctl play-pause"
+                ", XF86AudioPrev, exec, playerctl previous"
+                ", XF86AudioNext, exec, playerctl next"
+                ", XF86AudioStop, exec, playerctl stop"
             ];
         };
     };

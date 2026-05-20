@@ -5,14 +5,15 @@
         enable = true;
         settings = {
             window.padding = { x = 12; y = 12; };
+            window.opacity = config.theme.termOpacity;
             font = {
                 normal = { family = config.theme.font; style = "Regular"; };
                 size = config.theme.termFontSize;
             };
             colors = {
                 primary = {
-                    background = config.theme.bg;
-                    foreground = config.theme.fg;
+                    background = "${config.theme.bgTerminal}";
+                    foreground = "#e0e0e0";
                 };
                 normal = {
                     black =   "#1a1a2e";

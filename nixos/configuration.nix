@@ -21,9 +21,31 @@
     	./home/hyprland.nix
     	./home/hyprpaper.nix
 		./home/theme.nix
+		./home/swayosd.nix
+		./home/qutebrowser.nix
+		./home/micro.nix
     ];
   };
   home-manager.backupFileExtension = "backup";
+
+  # ============================================================
+  # LOCAL AI WORKLOADS (Ollama + Open WebUI)
+  # ============================================================
+  services.ollama = {
+      enable = true;
+      # Uses the dedicated rocm accelerated package for AMD GPUs
+      package = pkgs.ollama-rocm; 
+    };
+  
+    services.open-webui = {
+      enable = true;
+      port = 1111; # Sets the port it will run on locally
+      environment = {
+        ANONYMIZED_TELEMETRY = "False";
+        DO_NOT_TRACK = "True";
+        WEBUI_AUTH = "False"; # Disables the local account login loop so it boots instantly
+      };
+    };
 
   # ============================================================
   # BOOT
@@ -147,9 +169,19 @@
   users.users.ady = {
     isNormalUser = true;
     description = "Adrian Geleriu";
-    extraGroups = [ "networkmanager" "wheel" "video" "audio" "disk" "realtime" "i2c"];
+    extraGroups = [
+    	"networkmanager"
+    	"wheel"
+    	"video"
+    	"audio"
+    	"disk"
+    	"realtime"
+    	"i2c"
+		"input"
+    	];
     shell = pkgs.fish;
   };
+  nix.settings.experimental-features = [ "nix-command" "flakes"];
 
   # ============================================================
   # PROGRAMS
@@ -164,6 +196,7 @@
     QT_QPA_PLATFORMTHEME = "qt6ct";
     XCURSOR_THEME = "Bibata-Modern-Classic";
     XCURSOR_SIZE = "24";
+    ICON_THEME = "Papirus-Dark";
   };
 
   fonts.packages = with pkgs; [
@@ -186,14 +219,18 @@
     lm_sensors
 	appimage-run
 	xdg-utils
+	glib
+	rofi-calc
 
     # Hyprland ecosystem
     grimblast
     libnotify
 	ddcutil
+	swayosd
+	playerctl
 
     # File management
-    kdePackages.dolphin
+    xfce.thunar
     loupe
     mpv
 
@@ -210,6 +247,9 @@
     kdePackages.breeze
     nwg-look
 	bibata-cursors
+	kdePackages.qtstyleplugin-kvantum
+	papirus-icon-theme
+	arc-theme
 
     # Browser & mail
     librewolf
