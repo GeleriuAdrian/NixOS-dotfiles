@@ -8,15 +8,10 @@
       (pkgs.stdenv.mkDerivation {
         pname = "plymouth-theme-lone";
         version = "1.0";
-        src = pkgs.fetchFromGitHub {
-          owner = "adi1090x";
-          repo = "plymouth-themes";
-          rev = "master";
-          sha256 = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA="; # Update this
-        };
+        src = "/home/ady/dotfiles/themes/lone";
         installPhase = ''
-          mkdir -p $out/share/plymouth/themes/lone
-          cp -r packs/lone/* $out/share/plymouth/themes/lone/
+          mkdir -p $out/share/plymouth/themes
+          cp -r packs/lone $out/share/plymouth/themes/lone
         '';
       })
     ];
