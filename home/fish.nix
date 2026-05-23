@@ -13,28 +13,17 @@
             rebuild      = "sudo nixos-rebuild switch --flake ~/dotfiles#nixos";
             update       = "sudo nix-channel --update && sudo nixos-rebuild switch";
             clean        = "sudo nix-collect-garbage -d";
-        
-            # Configs
-            conf         = "sudo micro ~/dotfiles/configuration.nix";
-            themeconf    = "sudo micro ~/dotfiles/home/theme.nix";
-            hyprconf     = "sudo micro ~/dotfiles/home/hyprland.nix";
-            wayconf      = "sudo micro ~/dotfiles/home/waybar.nix";
-            fishconf     = "sudo micro ~/dotfiles/home/fish.nix";
-            makoconf     = "sudo micro ~/dotfiles/home/mako.nix";
-            woficonf     = "sudo micro ~/dotfiles/home/wofi.nix";
-            hyprpaperconf = "sudo micro ~/dotfiles/home/hyprpaper.nix";
-            alacconf     = "sudo micro ~/dotfiles/home/alacritty.nix";
-            swayosdconf  = "sudo micro ~/dotfiles/home/swayosd.nix";
-        
+
             # System info
             boottime     = "systemd-analyze";
             blame        = "systemd-analyze blame";
             services     = "systemctl list-units --type=service --state=running";
             temps        = "sensors";
-        
+
             # Dotfiles
+            dots = "zed ~/dotfiles";
             dotpush="cd ~/dotfiles && git add . && git commit -m 'update dotfiles' && git push";
-        
+
             # Power
             off          = "shutdown now";
             reboot       = "systemctl reboot";
