@@ -16,10 +16,10 @@
 
         "border": null,
         "border.variant": null,
-        "border.focused": "#aaee66",
-        "border.selected": "#aaee66",
+        "border.focused": null,
+        "border.selected": null,
         "border.transparent": "#00000000",
-        "border.disabled": "#2a2a3e",
+        "border.disabled": null,
 
         "text": "#e0e0e0",
         "text.muted": "#888888",
