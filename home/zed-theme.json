@@ -65,7 +65,7 @@
 
         "editor.selection.background": "#aaee6630",
 
-        "terminal.background": "#172905",
+        "terminal.background": "#0a0a0f",
         "terminal.foreground": "#e0e0e0",
         "terminal.bright_foreground": "#ffffff",
         "terminal.dim_foreground": "#888888",
