@@ -129,13 +129,13 @@
                 "$mod SHIFT, F, fullscreenstate, 0 2"
                 "$mod SHIFT, P, exec, wlogout"
                 ", XF86Explorer, exec, thunar"
-               	", XF86WWW, exec, librewolf"
+               	", XF86HomePage, exec, librewolf"
                	", XF86Mail, exec, thunderbird"
                	", XF86Calculator, exec, wofi --show calc -modi calc --no-residual"
             ];
 
             bindl = [
-				", XF86AudioRaiseVolume, exec, swayosd-client --output-volume raise"
+				", XF86AudioRaiseVolume, exec, swayosd-client --output-volume raise --max-volume 150"
                 ", XF86AudioLowerVolume, exec, swayosd-client --output-volume lower"
                 ", XF86AudioMute, exec, swayosd-client --output-volume mute-toggle"
 				", XF86AudioPlay, exec, playerctl play-pause"

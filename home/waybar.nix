@@ -4,7 +4,7 @@
     programs.waybar = {
         enable = true;
         settings = [{
-            layer = "top";
+            layer = "bottom";
             position = "top";
             height = 36;
             width = 1440;

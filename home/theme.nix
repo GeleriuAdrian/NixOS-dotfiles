@@ -7,7 +7,7 @@
         accentDim   = lib.mkOption { type = lib.types.str; default = "#88cc44"; };
         accentSoft  = lib.mkOption { type = lib.types.str; default = "#cce899"; };
         bg          = lib.mkOption { type = lib.types.str; default = "#0a0a0f"; };
-        bgTerminal  = lib.mkOption { type = lib.types.str; default = "#0a0f0a"; };
+        bgTerminal  = lib.mkOption { type = lib.types.str; default = "#172905"; };
         bgAlpha     = lib.mkOption { type = lib.types.str; default = "rgba(10, 10, 15, 0.4)"; };
         bgSolid     = lib.mkOption { type = lib.types.str; default = "rgba(10, 10, 15, 0.9)"; };
         bgMako      = lib.mkOption { type = lib.types.str; default = "#0a0a0fcc"; };
@@ -34,10 +34,10 @@
 		shadowRange = lib.mkOption { type = lib.types.int; default = 20; };
 		shadowPower = lib.mkOption { type = lib.types.int; default = 2; };
 		shadowOffset = lib.mkOption { type = lib.types.str; default = "0 4"; };
-		blurSize    = lib.mkOption { type = lib.types.int; default = 12; };
-		blurPasses  = lib.mkOption { type = lib.types.int; default = 5; };
+		blurSize    = lib.mkOption { type = lib.types.int; default = 5; };
+		blurPasses  = lib.mkOption { type = lib.types.int; default = 3; };
 		vibrancy    = lib.mkOption { type = lib.types.float; default = 0.3; };
-        termOpacity = lib.mkOption { type = lib.types.float; default = 0.70; };
+        termOpacity = lib.mkOption { type = lib.types.float; default = 0.50; };
         inactiveOpacity = lib.mkOption { type = lib.types.float; default = 0.95; };
     };
 }

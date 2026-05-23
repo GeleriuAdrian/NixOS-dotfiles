@@ -1,17 +1,14 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   imports = [
     ./hardware-configuration.nix
-    <musnix>
-    <home-manager/nixos>
-    ];
+  ];
 
   home-manager.users.ady = { pkgs, ... }: {
     home.stateVersion = "25.11";
     home.username = "ady";
     home.homeDirectory = "/home/ady";
-
     imports = [
     	./home/alacritty.nix
     	./home/fish.nix
@@ -33,19 +30,18 @@
   # ============================================================
   services.ollama = {
       enable = true;
-      # Uses the dedicated rocm accelerated package for AMD GPUs
       package = pkgs.ollama-rocm; 
     };
-  
-    services.open-webui = {
+
+  services.open-webui = {
       enable = true;
-      port = 1111; # Sets the port it will run on locally
+      port = 1111;
       environment = {
         ANONYMIZED_TELEMETRY = "False";
         DO_NOT_TRACK = "True";
-        WEBUI_AUTH = "False"; # Disables the local account login loop so it boots instantly
+        WEBUI_AUTH = "False"; 
       };
-    };
+  };
 
   # ============================================================
   # BOOT
@@ -54,7 +50,31 @@
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
     kernelPackages = pkgs.linuxPackages_latest;
+
+    plymouth.enable = true;
+    initrd.verbose = false;
+    consoleLogLevel = 0;
+    kernelParams = [
+      "quiet"
+      "splash"
+      "boot.shell_on_fail"
+      "loglevel=3"
+      "rd.systemd.show_status=false"
+      "rd.udev.log_level=3"
+      "rd.udev.log_priority=3"
+    ];
+    loader.timeout = 0;
   };
+
+  # ============================================================
+  # SYSTEMD OPTIMIZATIONS
+  # ============================================================
+  home-manager.useUserPackages = false;
+  home-manager.useGlobalPkgs = true;
+
+  systemd.services.NetworkManager.serviceConfig.TimeoutStartSec = "2s";
+  systemd.services.NetworkManager-dispatcher.enable = false;
+  systemd.services.wpa_supplicant.enable = false;
 
   # ============================================================
   # NETWORKING
@@ -63,15 +83,29 @@
     hostName = "nixos";
     networkmanager.enable = true;
     networkmanager.dns = "systemd-resolved";
-    wireless.enable = false;
+    # wireless.enable = false;
   };
   services.resolved.enable = true;
-  systemd.services.wpa_supplicant.enable = false;
 
+  # ============================================================
+  # DESKTOP PORTALS (Fixed for Zed Files & Links)
+  # ============================================================
   xdg.portal = {
-      enable = true;
-      extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
+    enable = true;
+    extraPortals = [ 
+      pkgs.xdg-desktop-portal-hyprland 
+      pkgs.xdg-desktop-portal-gtk 
+    ];
+    config = {
+      common = {
+        "org.freedesktop.impl.portal.FileChooser" = [ "gtk" ];
+        "org.freedesktop.impl.portal.OpenURI" = [ "gtk" ];
+        "org.freedesktop.impl.portal.ScreenCast" = [ "hyprland" ];
+        "org.freedesktop.impl.portal.Screenshot" = [ "hyprland" ];
+      };
+    };
   };
+
   services.upower.enable = true;
 
   # ============================================================
@@ -90,6 +124,7 @@
     LC_TELEPHONE    = "ro_RO.UTF-8";
     LC_TIME         = "ro_RO.UTF-8";
   };
+
   services.xserver.xkb = {
     layout = "us";
     variant = "";
@@ -113,7 +148,6 @@
       }
     ];
   };
-
   security.pam.services.greetd.enableGnomeKeyring = true;
   services.gnome.gnome-keyring.enable = true;
 
@@ -211,67 +245,59 @@
   # ============================================================
   nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
-    # System tools
     wget
     git
     nano
     micro
     lm_sensors
-	appimage-run
-	xdg-utils
-	glib
-	rofi-calc
+    appimage-run
+    xdg-utils
+    glib
+    rofi-calc
+    gcc
+    clang
+    cmake
+    clang-tools
 
-    # Hyprland ecosystem
     grimblast
     libnotify
-	ddcutil
-	swayosd
-	playerctl
+    ddcutil
+    swayosd
+    playerctl
 
-    # File management
     xfce.thunar
     loupe
     mpv
+    nautilus
 
-    # Network
     networkmanagerapplet
 
-    # Authentication
     polkit_gnome
     gnome-keyring
     libsecret
 
-    # Theme
     qt6Packages.qt6ct
     kdePackages.breeze
     nwg-look
-	bibata-cursors
-	kdePackages.qtstyleplugin-kvantum
-	papirus-icon-theme
-	arc-theme
+    bibata-cursors
+    kdePackages.qtstyleplugin-kvantum
+    papirus-icon-theme
+    arc-theme
 
-    # Browser & mail
     librewolf
     thunderbird
 
-    # Audio
     pipewire
     ardour
 
-    # Creative
     blender
     libresprite
     zed-editor
 
-    # Gaming
     gamemode
     mangohud
     radeontop
   ];
 
-  # ============================================================
-  # SYSTEM
-  # ============================================================
   system.stateVersion = "25.11";
 }
