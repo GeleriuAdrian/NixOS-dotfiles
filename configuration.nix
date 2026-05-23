@@ -3,6 +3,7 @@
 {
   imports = [
     ./hardware-configuration.nix
+    ./boot.nix
   ];
 
   home-manager.users.ady = { pkgs, ... }: {
@@ -33,7 +34,28 @@
     loader.efi.canTouchEfiVariables = true;
     kernelPackages = pkgs.linuxPackages_latest;
 
-    plymouth.enable = true;
+    plymouth = {
+      enable = true;
+      theme = "lone";
+      themePackages = [
+        (pkgs.stdenv.mkDerivation {
+          pname = "plymouth-theme-adi1090x";
+          version = "1.0";
+          src = pkgs.fetchFromGitHub {
+            owner = "adi1090x";
+            repo = "plymouth-themes";
+            rev = "master";
+            sha256 = "sha256-cCO8aTqss5x9Ky8GWkpY0Hy5fyTZEbtifSUV8QjSzic%3D";
+          };
+          installPhase = ''
+            mkdir -p $out/share/plymouth/themes/
+            cp -r packs/lone $out/share/plymouth/themes/lone
+            # The themes often need to point to their script files,
+            # but this simple copy usually works for the static ones.
+          '';
+        })
+      ];
+    };
     initrd.verbose = false;
     consoleLogLevel = 0;
     kernelParams = [
