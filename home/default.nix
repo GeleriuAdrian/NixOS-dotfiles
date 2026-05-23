@@ -23,6 +23,7 @@
         ./swayosd.nix
         ./qutebrowser.nix
         ./micro.nix
+        ./zed.nix
       ];
       xdg.desktopEntries = {
         ddnet = {
