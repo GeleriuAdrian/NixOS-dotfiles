@@ -81,11 +81,15 @@
 
       windowrule = [
         "match:class ^(loupe)$, float 1"
-        "match:class ^(dolphin)$, float 1"
         "match:class ^(nwg-look)$, float 1"
         "match:class ^(qt6ct)$, float 1"
-        "match:class ^(steam_app_.*)$, fullscreen_state 0 2"
-        "match:class ^(steam_app_.*)$, suppress_event fullscreen"
+        # Workspace assignments
+        "match:class ^(zeditor|Zed)$, workspace 2"
+        "match:class ^(Steam|steam)$, workspace 3"
+        "match:class ^(steam_app_.*)$, workspace 3"
+
+        # Games fullscreen
+        "match:class ^(steam_app_.*)$, fullscreen 1"
       ];
 
       "$mod" = "SUPER";

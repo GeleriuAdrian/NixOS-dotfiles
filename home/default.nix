@@ -14,15 +14,16 @@
       imports = [
         ./alacritty.nix
         ./fish.nix
-        ./mako.nix
-        ./wofi.nix
-        ./waybar.nix
         ./hyprland.nix
         ./hyprpaper.nix
-        ./theme.nix
-        ./swayosd.nix
-        ./qutebrowser.nix
+        ./mako.nix
         ./micro.nix
+        ./qutebrowser.nix
+        ./swayosd.nix
+        ./theme.nix
+        ./waybar.nix
+        ./wlsunset.nix
+        ./wofi.nix
         ./zed.nix
       ];
       xdg.desktopEntries = {

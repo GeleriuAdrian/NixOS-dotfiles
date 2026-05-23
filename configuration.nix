@@ -242,6 +242,7 @@
     swayosd
     playerctl
     hyprpaper
+    wlsunset
 
     # GUI apps
     thunar
