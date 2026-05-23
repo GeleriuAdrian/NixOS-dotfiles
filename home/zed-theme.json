@@ -14,12 +14,12 @@
         "panel.focused_border": null,
         "pane.focused_border": null,
 
-        "border": null,
-        "border.variant": null,
-        "border.focused": null,
-        "border.selected": null,
+        "border": "#00000000",
+        "border.variant": "#00000000",
+        "border.focused": "#00000000",
+        "border.selected": "#00000000",
         "border.transparent": "#00000000",
-        "border.disabled": null,
+        "border.disabled": "#00000000",
 
         "text": "#e0e0e0",
         "text.muted": "#888888",
