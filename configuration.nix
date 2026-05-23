@@ -1,4 +1,4 @@
-{ config, pkgs, lib, inputs, ... }:
+{ pkgs, ... }:
 
 {
   imports = [
@@ -6,34 +6,36 @@
     ./boot.nix
   ];
 
-  home-manager.users.ady = { pkgs, ... }: {
-    home.stateVersion = "25.11";
-    home.username = "ady";
-    home.homeDirectory = "/home/ady";
-    imports = [
-     	./home/alacritty.nix
-     	./home/fish.nix
-     	./home/mako.nix
-     	./home/wofi.nix
-     	./home/waybar.nix
-     	./home/hyprland.nix
-     	./home/hyprpaper.nix
-  		./home/theme.nix
-  		./home/swayosd.nix
-  		./home/qutebrowser.nix
-  		./home/micro.nix
-    ];
-    xdg.desktopEntries = {
-      ddnet = {
-        name = "DDRaceNetwork";
-        exec = "steam steam://run/412220";
-        icon = "steam_icon_412220";
-        comment = "Launch DDRaceNetwork from Steam";
-        categories = [ "Game" ];
-        terminal = false;
+  home-manager.users.ady =
+    { ... }:
+    {
+      home.stateVersion = "25.11";
+      home.username = "ady";
+      home.homeDirectory = "/home/ady";
+      imports = [
+        ./home/alacritty.nix
+        ./home/fish.nix
+        ./home/mako.nix
+        ./home/wofi.nix
+        ./home/waybar.nix
+        ./home/hyprland.nix
+        ./home/hyprpaper.nix
+        ./home/theme.nix
+        ./home/swayosd.nix
+        ./home/qutebrowser.nix
+        ./home/micro.nix
+      ];
+      xdg.desktopEntries = {
+        ddnet = {
+          name = "DDRaceNetwork";
+          exec = "steam steam://run/412220";
+          icon = "steam_icon_412220";
+          comment = "Launch DDRaceNetwork from Steam";
+          categories = [ "Game" ];
+          terminal = false;
+        };
       };
     };
-  };
   home-manager.backupFileExtension = "backup";
 
   # ============================================================
@@ -113,15 +115,15 @@
   time.timeZone = "Europe/Bucharest";
   i18n.defaultLocale = "en_US.UTF-8";
   i18n.extraLocaleSettings = {
-    LC_ADDRESS      = "ro_RO.UTF-8";
+    LC_ADDRESS = "ro_RO.UTF-8";
     LC_IDENTIFICATION = "ro_RO.UTF-8";
-    LC_MEASUREMENT  = "ro_RO.UTF-8";
-    LC_MONETARY     = "ro_RO.UTF-8";
-    LC_NAME         = "ro_RO.UTF-8";
-    LC_NUMERIC      = "ro_RO.UTF-8";
-    LC_PAPER        = "ro_RO.UTF-8";
-    LC_TELEPHONE    = "ro_RO.UTF-8";
-    LC_TIME         = "ro_RO.UTF-8";
+    LC_MEASUREMENT = "ro_RO.UTF-8";
+    LC_MONETARY = "ro_RO.UTF-8";
+    LC_NAME = "ro_RO.UTF-8";
+    LC_NUMERIC = "ro_RO.UTF-8";
+    LC_PAPER = "ro_RO.UTF-8";
+    LC_TELEPHONE = "ro_RO.UTF-8";
+    LC_TIME = "ro_RO.UTF-8";
   };
 
   services.xserver.xkb = {
@@ -176,15 +178,14 @@
   # ============================================================
   programs.hyprland.enable = true;
   services.greetd = {
-      enable = true;
-      settings = {
-        default_session = {
-          command = "start-hyprland";
-          user = "ady";
-        };
+    enable = true;
+    settings = {
+      default_session = {
+        command = "start-hyprland";
+        user = "ady";
       };
     };
-
+  };
 
   # ============================================================
   # STORAGE
@@ -192,7 +193,10 @@
   fileSystems."/mnt/data" = {
     device = "/dev/disk/by-uuid/1d19bf89-8827-4fa1-876d-cd00844abe8a";
     fsType = "ext4";
-    options = [ "defaults" "noatime"];
+    options = [
+      "defaults"
+      "noatime"
+    ];
   };
   services.udisks2.enable = true;
 
@@ -206,18 +210,21 @@
     isNormalUser = true;
     description = "Adrian Geleriu";
     extraGroups = [
-    	"networkmanager"
-    	"wheel"
-    	"video"
-    	"audio"
-    	"disk"
-    	"realtime"
-    	"i2c"
-		"input"
-    	];
+      "networkmanager"
+      "wheel"
+      "video"
+      "audio"
+      "disk"
+      "realtime"
+      "i2c"
+      "input"
+    ];
     shell = pkgs.fish;
   };
-  nix.settings.experimental-features = [ "nix-command" "flakes"];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   # ============================================================
   # PROGRAMS
@@ -236,10 +243,10 @@
   };
 
   fonts.packages = with pkgs; [
-      noto-fonts
-      noto-fonts-color-emoji
-      jetbrains-mono
-      nerd-fonts.jetbrains-mono
+    noto-fonts
+    noto-fonts-color-emoji
+    jetbrains-mono
+    nerd-fonts.jetbrains-mono
   ];
 
   # ============================================================
@@ -260,6 +267,8 @@
     clang
     cmake
     clang-tools
+    nil
+    nixd
 
     grimblast
     libnotify
@@ -278,7 +287,7 @@
     gnome-keyring
     libsecret
 
-	hyprpaper
+    hyprpaper
     qt6Packages.qt6ct
     kdePackages.breeze
     nwg-look
