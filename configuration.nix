@@ -10,17 +10,17 @@
     home.username = "ady";
     home.homeDirectory = "/home/ady";
     imports = [
-    	./home/alacritty.nix
-    	./home/fish.nix
-    	./home/mako.nix
-    	./home/wofi.nix
-    	./home/waybar.nix
-    	./home/hyprland.nix
-    	./home/hyprpaper.nix
-		./home/theme.nix
-		./home/swayosd.nix
-		./home/qutebrowser.nix
-		./home/micro.nix
+     	./home/alacritty.nix
+     	./home/fish.nix
+     	./home/mako.nix
+     	./home/wofi.nix
+     	./home/waybar.nix
+     	./home/hyprland.nix
+     	./home/hyprpaper.nix
+  		./home/theme.nix
+  		./home/swayosd.nix
+  		./home/qutebrowser.nix
+  		./home/micro.nix
     ];
   };
   home-manager.backupFileExtension = "backup";
@@ -72,16 +72,23 @@
   # ============================================================
   # DESKTOP PORTALS (Fixed for Zed Files & Links)
   # ============================================================
+  environment.sessionVariables = {
+    XDG_CURRENT_DESKTOP = "Hyprland";
+    XDG_SESSION_TYPE = "wayland";
+  };
+
   xdg.portal = {
     enable = true;
-    extraPortals = [ 
-      pkgs.xdg-desktop-portal-hyprland 
-      pkgs.xdg-desktop-portal-gtk 
+    # Ensure the GTK portal is present to handle the FileChooser
+    extraPortals = [
+      pkgs.xdg-desktop-portal-hyprland
+      pkgs.xdg-desktop-portal-gtk
     ];
+
+    # Newer NixOS versions prefer this mapping style for the portal configuration
     config = {
       common = {
-        "org.freedesktop.impl.portal.FileChooser" = [ "gtk" ];
-        "org.freedesktop.impl.portal.OpenURI" = [ "gtk" ];
+        default = [ "gtk" ];
         "org.freedesktop.impl.portal.ScreenCast" = [ "hyprland" ];
         "org.freedesktop.impl.portal.Screenshot" = [ "hyprland" ];
       };
