@@ -1,4 +1,4 @@
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, inputs, ... }:
 
 {
   imports = [
@@ -24,24 +24,6 @@
     ];
   };
   home-manager.backupFileExtension = "backup";
-
-  # ============================================================
-  # LOCAL AI WORKLOADS (Ollama + Open WebUI)
-  # ============================================================
-  services.ollama = {
-      enable = true;
-      package = pkgs.ollama-rocm; 
-    };
-
-  services.open-webui = {
-      enable = true;
-      port = 1111;
-      environment = {
-        ANONYMIZED_TELEMETRY = "False";
-        DO_NOT_TRACK = "True";
-        WEBUI_AUTH = "False"; 
-      };
-  };
 
   # ============================================================
   # BOOT
@@ -265,7 +247,7 @@
     swayosd
     playerctl
 
-    xfce.thunar
+    thunar
     loupe
     mpv
     nautilus
@@ -276,6 +258,7 @@
     gnome-keyring
     libsecret
 
+	hyprpaper
     qt6Packages.qt6ct
     kdePackages.breeze
     nwg-look

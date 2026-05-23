@@ -2,27 +2,29 @@
   description = "Ady's NixOS Flake Configuration - Unstable Branch";
 
   inputs = {
-    # Pulling from unstable for bleeding-edge application versions like Zed
+    # Main system packages (unstable)
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    
+    # Fallback channel to pull stable versions of broken packages
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-25.11";
 
-    # Track master branch of home-manager to cleanly match the unstable packages
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Track musnix for real-time audio optimizations
     musnix = {
       url = "github:musnix/musnix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = { self, nixpkgs, home-manager, musnix, ... }@inputs: {
+  outputs = { self, nixpkgs, nixpkgs-stable, home-manager, musnix, ... }@inputs: {
     nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
+      # This argument makes all flake inputs accessible directly inside configuration.nix
+      specialArgs = { inherit inputs; }; 
       modules = [
-        # Injecting modules natively from our flake inputs
         musnix.nixosModules.musnix
         home-manager.nixosModules.home-manager
         

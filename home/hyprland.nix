@@ -3,6 +3,7 @@
 {
     wayland.windowManager.hyprland = {
         enable = true;
+        configType = "hyprlang";
         settings = {
             monitor = ", 1920x1080@144, auto, 1";
 
@@ -77,13 +78,13 @@
                 ];
             };
 
-            windowrulev2 = [
-                "float, class:(loupe)"
-                "float, class:(dolphin)"
-                "float, class:(nwg-look)"
-                "float, class:(qt6ct)"
-                "fullscreenstate 0 2, class:(steam_app_.*)"
-                "suppressevent fullscreen, class:(steam_app_.*)"
+            windowrule = [
+                "match:class ^(loupe)$, float 1"
+                "match:class ^(dolphin)$, float 1"
+                "match:class ^(nwg-look)$, float 1"
+                "match:class ^(qt6ct)$, float 1"
+                "match:class ^(steam_app_.*)$, fullscreen_state 0 2"
+                "match:class ^(steam_app_.*)$, suppress_event fullscreen"
             ];
 
             "$mod" = "SUPER";
@@ -135,10 +136,10 @@
             ];
 
             bindl = [
-				", XF86AudioRaiseVolume, exec, swayosd-client --output-volume raise --max-volume 150"
+                ", XF86AudioRaiseVolume, exec, swayosd-client --output-volume raise --max-volume 150"
                 ", XF86AudioLowerVolume, exec, swayosd-client --output-volume lower"
                 ", XF86AudioMute, exec, swayosd-client --output-volume mute-toggle"
-				", XF86AudioPlay, exec, playerctl play-pause"
+                ", XF86AudioPlay, exec, playerctl play-pause"
                 ", XF86AudioPrev, exec, playerctl previous"
                 ", XF86AudioNext, exec, playerctl next"
                 ", XF86AudioStop, exec, playerctl stop"
