@@ -11,8 +11,8 @@
         "elevated_surface.background": "#0f0f14",
         "surface.background": "#0d0d12",
         "panel.background": "#0d0d12",
-        "panel.focused_border": "#aaee6644",
-        "pane.focused_border": "#aaee6666",
+        "panel.focused_border": null,
+        "pane.focused_border": null,
 
         "border": null,
         "border.variant": null,
