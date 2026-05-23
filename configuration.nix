@@ -23,6 +23,16 @@
   		./home/qutebrowser.nix
   		./home/micro.nix
     ];
+    xdg.desktopEntries = {
+      ddnet = {
+        name = "DDRaceNetwork";
+        exec = "steam steam://run/412220";
+        icon = "steam_icon_412220";
+        comment = "Launch DDRaceNetwork from Steam";
+        categories = [ "Game" ];
+        terminal = false;
+      };
+    };
   };
   home-manager.backupFileExtension = "backup";
 
@@ -33,6 +43,7 @@
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
     kernelPackages = pkgs.linuxPackages_latest;
+    initrd.kernelModules = [ "amdgpu" ];
     initrd.verbose = false;
     consoleLogLevel = 0;
     kernelParams = [
@@ -165,12 +176,15 @@
   # ============================================================
   programs.hyprland.enable = true;
   services.greetd = {
-    enable = true;
-    settings.default_session = {
-      command = "Hyprland";
-      user = "ady";
+      enable = true;
+      settings = {
+        default_session = {
+          command = "start-hyprland";
+          user = "ady";
+        };
+      };
     };
-  };
+
 
   # ============================================================
   # STORAGE
