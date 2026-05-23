@@ -12,15 +12,15 @@
         dontUnpack = true;
 
         installPhase = ''
-          # Create the exact directory structure Plymouth expects
+          # 1. Create the exact directory structure Plymouth expects
           mkdir -p $out/share/plymouth/themes/lone
 
-          # Copy all files directly into the theme folder
-          cp -r ./* $out/share/plymouth/themes/lone/
+          # 2. Copy explicitly from the $src variable, NOT the empty current directory
+          cp -r $src/* $out/share/plymouth/themes/lone/
 
-          # Force the path in the config to be absolute so it doesn't get lost
-          sed -i 's|ImageDir=.*|ImageDir=/run/current-system/sw/share/plymouth/themes/lone|g' $out/share/plymouth/themes/lone/lone.plymouth
-          sed -i 's|ScriptFile=.*|ScriptFile=/run/current-system/sw/share/plymouth/themes/lone/lone.script|g' $out/share/plymouth/themes/lone/lone.plymouth
+          # 3. Use double quotes so Bash evaluates $out, giving Plymouth the hard Nix store paths it needs during early boot
+          sed -i "s|ImageDir=.*|ImageDir=$out/share/plymouth/themes/lone|g" $out/share/plymouth/themes/lone/lone.plymouth
+          sed -i "s|ScriptFile=.*|ScriptFile=$out/share/plymouth/themes/lone/lone.script|g" $out/share/plymouth/themes/lone/lone.plymouth
         '';
       })
     ];
