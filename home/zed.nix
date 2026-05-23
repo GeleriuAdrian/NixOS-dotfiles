@@ -22,7 +22,7 @@
       buffer_font_size = config.theme.termFontSize;
 
       # Wayland
-      window_decorations = "Client";
+      window_decorations = "client";
 
       # Editor feel
       vim_mode = false;
@@ -46,6 +46,11 @@
         env = {
           TERM = "xterm-256color";
         };
+      };
+
+      active_pane_styling = {
+        border_size = 0;
+        inactive_opacity = 1.0;
       };
     };
   };

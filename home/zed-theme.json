@@ -14,8 +14,8 @@
         "panel.focused_border": "#aaee6644",
         "pane.focused_border": "#aaee6666",
 
-        "border": "#444444",
-        "border.variant": "#2a2a3e",
+        "border": null,
+        "border.variant": null,
         "border.focused": "#aaee66",
         "border.selected": "#aaee66",
         "border.transparent": "#00000000",
