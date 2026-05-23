@@ -246,7 +246,6 @@
     thunar
     loupe
     mpv
-    zed-editor
     librewolf
     thunderbird
     blender
