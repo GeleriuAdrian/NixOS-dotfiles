@@ -4,49 +4,33 @@
   imports = [
     ./hardware-configuration.nix
     ./boot.nix
+    ./home/default.nix # home-manager block lives here now
   ];
 
-  home-manager.users.ady =
-    { ... }:
-    {
-      home.stateVersion = "25.11";
-      home.username = "ady";
-      home.homeDirectory = "/home/ady";
-      imports = [
-        ./home/alacritty.nix
-        ./home/fish.nix
-        ./home/mako.nix
-        ./home/wofi.nix
-        ./home/waybar.nix
-        ./home/hyprland.nix
-        ./home/hyprpaper.nix
-        ./home/theme.nix
-        ./home/swayosd.nix
-        ./home/qutebrowser.nix
-        ./home/micro.nix
-      ];
-      xdg.desktopEntries = {
-        ddnet = {
-          name = "DDRaceNetwork";
-          exec = "steam steam://run/412220";
-          icon = "steam_icon_412220";
-          comment = "Launch DDRaceNetwork from Steam";
-          categories = [ "Game" ];
-          terminal = false;
-        };
-      };
-    };
-  home-manager.backupFileExtension = "backup";
+  # ============================================================
+  # NIX
+  # ============================================================
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
+  nixpkgs.config.allowUnfree = true;
 
   # ============================================================
   # BOOT
   # ============================================================
   boot = {
-    loader.systemd-boot.enable = true;
-    loader.efi.canTouchEfiVariables = true;
+    loader = {
+      systemd-boot.enable = true;
+      efi.canTouchEfiVariables = true;
+      timeout = 0;
+    };
     kernelPackages = pkgs.linuxPackages_latest;
-    initrd.kernelModules = [ "amdgpu" ];
-    initrd.verbose = false;
+    kernelModules = [ "i2c-dev" ];
+    initrd = {
+      kernelModules = [ "amdgpu" ];
+      verbose = false;
+    };
     consoleLogLevel = 0;
     kernelParams = [
       "quiet"
@@ -57,33 +41,83 @@
       "rd.udev.log_level=3"
       "rd.udev.log_priority=3"
     ];
-    loader.timeout = 0;
   };
-
-  # ============================================================
-  # SYSTEMD OPTIMIZATIONS
-  # ============================================================
-  home-manager.useUserPackages = false;
-  home-manager.useGlobalPkgs = true;
-
-  systemd.services.NetworkManager.serviceConfig.TimeoutStartSec = "2s";
-  systemd.services.NetworkManager-dispatcher.enable = false;
-  systemd.services.wpa_supplicant.enable = false;
 
   # ============================================================
   # NETWORKING
   # ============================================================
   networking = {
     hostName = "nixos";
-    networkmanager.enable = true;
-    networkmanager.dns = "systemd-resolved";
-    # wireless.enable = false;
+    networkmanager = {
+      enable = true;
+      dns = "systemd-resolved";
+    };
   };
   services.resolved.enable = true;
 
+  systemd.services = {
+    NetworkManager.serviceConfig.TimeoutStartSec = "2s";
+    NetworkManager-dispatcher.enable = false;
+    wpa_supplicant.enable = false;
+  };
+
   # ============================================================
-  # DESKTOP PORTALS (Fixed for Zed Files & Links)
+  # LOCALE & TIME
   # ============================================================
+  time.timeZone = "Europe/Bucharest";
+  i18n = {
+    defaultLocale = "en_US.UTF-8";
+    extraLocaleSettings = {
+      LC_ADDRESS = "ro_RO.UTF-8";
+      LC_IDENTIFICATION = "ro_RO.UTF-8";
+      LC_MEASUREMENT = "ro_RO.UTF-8";
+      LC_MONETARY = "ro_RO.UTF-8";
+      LC_NAME = "ro_RO.UTF-8";
+      LC_NUMERIC = "ro_RO.UTF-8";
+      LC_PAPER = "ro_RO.UTF-8";
+      LC_TELEPHONE = "ro_RO.UTF-8";
+      LC_TIME = "ro_RO.UTF-8";
+    };
+  };
+  services.xserver.xkb.layout = "us";
+
+  # ============================================================
+  # HARDWARE
+  # ============================================================
+  hardware = {
+    graphics = {
+      enable = true;
+      enable32Bit = true;
+    };
+    i2c.enable = true;
+  };
+
+  # ============================================================
+  # AUDIO
+  # ============================================================
+  services.pipewire = {
+    enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    jack.enable = true;
+  };
+  musnix.enable = true;
+  security.rtkit.enable = true;
+
+  # ============================================================
+  # DESKTOP
+  # ============================================================
+  programs.hyprland.enable = true;
+
+  services.greetd = {
+    enable = true;
+    settings.default_session = {
+      command = "start-hyprland";
+      user = "ady";
+    };
+  };
+
   environment.sessionVariables = {
     XDG_CURRENT_DESKTOP = "Hyprland";
     XDG_SESSION_TYPE = "wayland";
@@ -91,51 +125,23 @@
 
   xdg.portal = {
     enable = true;
-    # Ensure the GTK portal is present to handle the FileChooser
     extraPortals = [
       pkgs.xdg-desktop-portal-hyprland
       pkgs.xdg-desktop-portal-gtk
     ];
-
-    # Newer NixOS versions prefer this mapping style for the portal configuration
-    config = {
-      common = {
-        default = [ "gtk" ];
-        "org.freedesktop.impl.portal.ScreenCast" = [ "hyprland" ];
-        "org.freedesktop.impl.portal.Screenshot" = [ "hyprland" ];
-      };
+    config.common = {
+      default = [ "gtk" ];
+      "org.freedesktop.impl.portal.ScreenCast" = [ "hyprland" ];
+      "org.freedesktop.impl.portal.Screenshot" = [ "hyprland" ];
     };
   };
 
   services.upower.enable = true;
 
   # ============================================================
-  # LOCALE & TIME
-  # ============================================================
-  time.timeZone = "Europe/Bucharest";
-  i18n.defaultLocale = "en_US.UTF-8";
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "ro_RO.UTF-8";
-    LC_IDENTIFICATION = "ro_RO.UTF-8";
-    LC_MEASUREMENT = "ro_RO.UTF-8";
-    LC_MONETARY = "ro_RO.UTF-8";
-    LC_NAME = "ro_RO.UTF-8";
-    LC_NUMERIC = "ro_RO.UTF-8";
-    LC_PAPER = "ro_RO.UTF-8";
-    LC_TELEPHONE = "ro_RO.UTF-8";
-    LC_TIME = "ro_RO.UTF-8";
-  };
-
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
-  };
-
-  # ============================================================
   # SECURITY
   # ============================================================
   security = {
-    rtkit.enable = true;
     polkit.enable = true;
     sudo.extraRules = [
       {
@@ -148,44 +154,9 @@
         ];
       }
     ];
+    pam.services.greetd.enableGnomeKeyring = true;
   };
-  security.pam.services.greetd.enableGnomeKeyring = true;
   services.gnome.gnome-keyring.enable = true;
-
-  # ============================================================
-  # HARDWARE
-  # ============================================================
-  hardware.graphics = {
-    enable = true;
-    enable32Bit = true;
-  };
-
-  # ============================================================
-  # AUDIO
-  # ============================================================
-  services.pulseaudio.enable = false;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    jack.enable = true;
-  };
-  musnix.enable = true;
-
-  # ============================================================
-  # DESKTOP
-  # ============================================================
-  programs.hyprland.enable = true;
-  services.greetd = {
-    enable = true;
-    settings = {
-      default_session = {
-        command = "start-hyprland";
-        user = "ady";
-      };
-    };
-  };
 
   # ============================================================
   # STORAGE
@@ -204,8 +175,6 @@
   # USER
   # ============================================================
   programs.fish.enable = true;
-  hardware.i2c.enable = true;
-  boot.kernelModules = [ "i2c-dev" ];
   users.users.ady = {
     isNormalUser = true;
     description = "Adrian Geleriu";
@@ -221,13 +190,9 @@
     ];
     shell = pkgs.fish;
   };
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
 
   # ============================================================
-  # PROGRAMS
+  # GAMING
   # ============================================================
   programs.steam.enable = true;
   programs.gamemode.enable = true;
@@ -252,42 +217,50 @@
   # ============================================================
   # PACKAGES
   # ============================================================
-  nixpkgs.config.allowUnfree = true;
   environment.systemPackages = with pkgs; [
+    # CLI utilities
     wget
     git
-    nano
     micro
     lm_sensors
     appimage-run
     xdg-utils
     glib
-    rofi-calc
+
+    # Development
     gcc
     clang
     cmake
     clang-tools
-    nil
     nixd
 
+    # Wayland / desktop
     grimblast
     libnotify
     ddcutil
     swayosd
     playerctl
+    hyprpaper
 
+    # GUI apps
     thunar
     loupe
     mpv
-    nautilus
+    zed-editor
+    librewolf
+    thunderbird
+    blender
+    libresprite
+    ardour
+    pipewire
 
+    # System tray / auth
     networkmanagerapplet
-
     polkit_gnome
     gnome-keyring
     libsecret
 
-    hyprpaper
+    # Theme
     qt6Packages.qt6ct
     kdePackages.breeze
     nwg-look
@@ -296,19 +269,13 @@
     papirus-icon-theme
     arc-theme
 
-    librewolf
-    thunderbird
-
-    pipewire
-    ardour
-
-    blender
-    libresprite
-    zed-editor
-
+    # Gaming
     gamemode
     mangohud
     radeontop
+
+    # Launcher extras
+    rofi-calc
   ];
 
   system.stateVersion = "25.11";
