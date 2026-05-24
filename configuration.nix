@@ -4,7 +4,8 @@
   imports = [
     ./hardware-configuration.nix
     ./boot.nix
-    ./home/default.nix # home-manager block lives here now
+    ./home/default.nix
+    ./rgb.nix
   ];
 
   # ============================================================

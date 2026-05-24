@@ -19,7 +19,6 @@
         ./mako.nix
         ./micro.nix
         ./qutebrowser.nix
-        ./rgb.nix
         ./swayosd.nix
         ./theme.nix
         ./waybar.nix
