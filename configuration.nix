@@ -45,6 +45,15 @@
   };
 
   # ============================================================
+  # RGB
+  # ============================================================
+  services.hardware.openrgb = {
+    enable = true;
+    package = pkgs.openrgb-with-all-plugins;
+    motherboard = "amd"; # important for your Ryzen/B550 board
+  };
+
+  # ============================================================
   # NETWORKING
   # ============================================================
   networking = {
