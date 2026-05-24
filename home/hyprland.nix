@@ -131,7 +131,7 @@
         "$mod SHIFT, 5, movetoworkspace, 5"
         "ALT, Tab, cyclenext"
         "ALT SHIFT, Tab, cyclenext, prev"
-        ", Print, exec, grimblast copy area"
+        ", Print, exec, grimblast copysave area $HOME/Pictures/Screenshots/$(date +%Y%m%d_%H%M%S).png"
         "$mod SHIFT, F, fullscreenstate, 0 2"
         "$mod SHIFT, P, exec, wlogout"
         ", XF86Explorer, exec, thunar"
