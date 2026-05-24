@@ -1,8 +1,7 @@
 { pkgs, ... }:
 
 let
-  my-rgb = pkgs.writeScriptBin "my-rgb" ''
-    #!/bin/sh
+  my-rgb = pkgs.writeShellScript "my-rgb" ''
     ${pkgs.openrgb}/bin/openrgb --noautoconnect --device 0 --zone 0 --mode static --color aaee66
     ${pkgs.openrgb}/bin/openrgb --noautoconnect --device 0 --zone 1 --mode static --color aaee66
     ${pkgs.openrgb}/bin/openrgb --noautoconnect --device 0 --zone 2 --mode static --color aaee66
@@ -10,14 +9,15 @@ let
   '';
 in
 {
-  environment.systemPackages = [ my-rgb ];
-
   systemd.services.my-rgb = {
     description = "Set RGB lighting to green on boot";
-    after = [ "multi-user.target" "openrgb.service" ];
+    after = [
+      "multi-user.target"
+      "openrgb.service"
+    ];
     wants = [ "openrgb.service" ];
     serviceConfig = {
-      ExecStart = "${my-rgb}/bin/my-rgb";
+      ExecStart = "${my-rgb}";
       Type = "oneshot";
       RemainAfterExit = true;
     };
