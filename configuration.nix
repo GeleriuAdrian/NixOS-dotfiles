@@ -227,6 +227,7 @@
     appimage-run
     xdg-utils
     glib
+    yazi
 
     # Development
     gcc
@@ -234,6 +235,7 @@
     cmake
     clang-tools
     nixd
+    nil
 
     # Wayland / desktop
     grimblast
@@ -245,7 +247,6 @@
     wlsunset
 
     # GUI apps
-    thunar
     loupe
     mpv
     librewolf

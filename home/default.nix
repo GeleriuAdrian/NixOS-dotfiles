@@ -24,6 +24,7 @@
         ./waybar.nix
         ./wlsunset.nix
         ./wofi.nix
+        ./yazi.nix
         ./zed.nix
       ];
       xdg.desktopEntries = {

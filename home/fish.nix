@@ -13,6 +13,7 @@
       rebuild = "sudo nixos-rebuild switch --flake ~/dotfiles#nixos";
       update = "sudo nix-channel --update && sudo nixos-rebuild switch";
       clean = "sudo nix-collect-garbage -d";
+      y = "yazi";
 
       # System info
       boottime = "systemd-analyze";
