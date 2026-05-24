@@ -5,7 +5,7 @@
     ./hardware-configuration.nix
     ./boot.nix
     ./home/default.nix
-    ./rgb.nix
+    ./home/rgb.nix
   ];
 
   # ============================================================
