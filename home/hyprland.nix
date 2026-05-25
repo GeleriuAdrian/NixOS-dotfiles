@@ -11,6 +11,7 @@
         "/run/current-system/sw/bin/gnome-keyring-daemon --start --components=secrets"
         "/run/current-system/sw/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
         "gsettings set org.gnome.desktop.interface icon-theme Papirus-Dark"
+        "blueman-applet"
       ];
 
       env = [
@@ -80,9 +81,9 @@
       };
 
       windowrule = [
-        "match:class ^(loupe)$, float 1"
-        "match:class ^(nwg-look)$, float 1"
-        "match:class ^(qt6ct)$, float 1"
+        "match:class ^(loupe)$, float 1, center 1"
+        "match:class ^(nwg-look)$, float 1, center 1"
+        "match:class ^(qt6ct)$, float 1, center 1"
         # Workspace assignments
         "match:class ^(zeditor|Zed)$, workspace 2"
         "match:class ^(Steam|steam)$, workspace 3"
