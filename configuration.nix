@@ -101,7 +101,7 @@
       enable32Bit = true;
     };
     i2c.enable = true;
-    hardware.bluetooth = {
+    bluetooth = {
       enable = true;
       powerOnBoot = true;
       settings.Policy.AutoEnable = "true";
