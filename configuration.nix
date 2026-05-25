@@ -101,13 +101,13 @@
       enable32Bit = true;
     };
     i2c.enable = true;
-    bluetooth = {
+    hardware.bluetooth = {
       enable = true;
       powerOnBoot = true;
       settings.Policy.AutoEnable = "true";
     };
-    services.blueman.enable = true;
   };
+  services.blueman.enable = true;
 
   # ============================================================
   # AUDIO
