@@ -154,27 +154,23 @@
             fg = "#ff8800";
           }
           {
-            name = "*.nix";
+            mime = "text/x-nix";
             fg = "${config.theme.accent}";
           }
           {
-            name = "*.cpp";
+            mime = "text/x-c";
             fg = "#88ccff";
           }
           {
-            name = "*.h";
+            mime = "text/x-chdr";
             fg = "#aaddff";
           }
           {
-            name = "*.c";
-            fg = "#88ccff";
-          }
-          {
-            name = "*.py";
+            mime = "text/x-python";
             fg = "#ffff88";
           }
           {
-            name = "*";
+            mime = "*";
             fg = "${config.theme.fg}";
           }
         ];
