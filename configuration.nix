@@ -6,6 +6,7 @@
     ./boot.nix
     ./home/default.nix
     ./home/rgb.nix
+    ./home/actual.nix
   ];
 
   # ============================================================
