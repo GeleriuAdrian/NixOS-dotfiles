@@ -27,6 +27,11 @@
         ./yazi.nix
         ./zed.nix
       ];
+      dconf.settings = {
+        "org/gnome/desktop/interface" = {
+          color-scheme = "prefer-dark";
+        };
+      };
       xdg.desktopEntries = {
         ddnet = {
           name = "DDRaceNetwork";
