@@ -153,11 +153,6 @@
       "org.freedesktop.impl.portal.Screenshot" = [ "hyprland" ];
       "org.freedesktop.impl.portal.FileChooser" = [ "gtk" ];
     };
-    systemd.user.services.xdg-desktop-portal-gtk = {
-      environment = {
-        GDK_BACKEND = "wayland";
-        DISPLAY = "";
-      };
   };
 
   services.upower.enable = true;
