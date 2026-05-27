@@ -98,6 +98,7 @@
         kdePackages.qtstyleplugin-kvantum
         papirus-icon-theme
         arc-theme
+        gsettings-desktop-schemas
 
         # Gaming
         gamemode
