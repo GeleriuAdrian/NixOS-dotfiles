@@ -10,6 +10,7 @@
       exec-once = [
         "/run/current-system/sw/bin/gnome-keyring-daemon --start --components=secrets"
         "/run/current-system/sw/lib/polkit-gnome/polkit-gnome-authentication-agent-1"
+        "/run/current-system/sw/libexec/xdg-desktop-portal-gtk"
         "gsettings set org.gnome.desktop.interface icon-theme Papirus-Dark"
         "blueman-applet"
       ];
