@@ -25,7 +25,6 @@
         ./waybar.nix
         ./wlsunset.nix
         ./wofi.nix
-        ./yazi.nix
         ./zed.nix
       ];
 
@@ -57,7 +56,6 @@
         appimage-run
         xdg-utils
         glib
-        yazi
 
         # Development
         cmake
@@ -73,6 +71,7 @@
         playerctl
         hyprpaper
         wlsunset
+        xdg-desktop-portal-gtk
 
         # GUI apps
         loupe
@@ -83,6 +82,7 @@
         libresprite
         ardour
         pipewire
+        nautilus
 
         # System tray / auth
         networkmanagerapplet
