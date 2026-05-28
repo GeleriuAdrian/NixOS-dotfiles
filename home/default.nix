@@ -105,6 +105,7 @@
         gamemode
         mangohud
         radeontop
+        heroic
 
         # Launcher extras
         rofi-calc

@@ -52,8 +52,8 @@
           format = "󰃠 {}%";
           interval = 10;
           exec = "ddcutil getvcp 10 | grep -oP '(?<=current value =\\s{1,5})\\d+'";
-          on-scroll-up = "ddcutil setvcp 10 + 5 --noverify";
-          on-scroll-down = "ddcutil setvcp 10 - 5 --noverify";
+          on-scroll-up = "flock -n /tmp/ddcutil-brightness.lock ddcutil setvcp 10 + 5 --noverify";
+          on-scroll-down = "flock -n /tmp/ddcutil-brightness.lock ddcutil setvcp 10 - 5 --noverify";
           tooltip = false;
         };
 

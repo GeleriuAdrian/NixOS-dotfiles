@@ -86,7 +86,7 @@
         "match:class ^(nwg-look)$, float 1, center 1"
         "match:class ^(qt6ct)$, float 1, center 1"
         # Workspace assignments
-        "match:class ^(zeditor|Zed)$, workspace 2"
+        "match:class ^(dev\\.zed\\.Zed)$, workspace 2"
         "match:class ^(Steam|steam)$, workspace 3"
         "match:class ^(steam_app_.*)$, workspace 3"
 
