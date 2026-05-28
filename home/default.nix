@@ -15,6 +15,7 @@
       imports = [
         ./alacritty.nix
         ./fish.nix
+        ./gtk.nix
         ./hyprland.nix
         ./hyprpaper.nix
         ./mako.nix
