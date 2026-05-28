@@ -9,6 +9,9 @@
       name = "JetBrains Mono";
       size = 11;
     };
+    iconTheme = {
+      name = "Papirus-Dark";
+    };
     gtk4.theme = config.gtk.theme;
   };
 
