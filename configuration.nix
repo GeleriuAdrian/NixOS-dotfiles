@@ -8,6 +8,7 @@
     ./nixos/networking.nix
     ./nixos/audio.nix
     ./nixos/desktop.nix
+    ./nixos/docker.nix
     ./nixos/security.nix
     ./home/default.nix
     ./home/rgb.nix
