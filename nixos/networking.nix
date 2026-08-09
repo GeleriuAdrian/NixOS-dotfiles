@@ -13,7 +13,7 @@
 
   systemd.services = {
     NetworkManager.serviceConfig.TimeoutStartSec = "2s";
-    NetworkManager-dispatcher.enable = false;
-    wpa_supplicant.enable = false;
+    # NetworkManager-dispatcher.enable = false;
+    # wpa_supplicant.enable = false;
   };
 }

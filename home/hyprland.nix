@@ -94,7 +94,7 @@
         "match:class ^(steam_app_.*)$, fullscreen 1"
       ];
 
-      "$mod" = "SUPER";
+      "$mod" = "ALT";
       bindm = [
         "$mod, mouse:272, movewindow"
         "$mod, mouse:273, resizewindow"

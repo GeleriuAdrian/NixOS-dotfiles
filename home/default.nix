@@ -1,5 +1,20 @@
 { pkgs, ... }:
-
+let
+  blender-hip =
+    (pkgs.blender.override {
+      rocmSupport = true;
+      rocmPackages = pkgs.rocmPackages;
+    }).overrideAttrs
+      (old: {
+        buildInputs = map (
+          dep:
+          if pkgs.lib.getName dep == "openshadinglanguage" then
+            dep.override { llvmPackages = pkgs.llvmPackages_21; }
+          else
+            dep
+        ) old.buildInputs;
+      });
+in
 {
   home-manager.backupFileExtension = "backup";
   home-manager.useUserPackages = false;
@@ -73,13 +88,13 @@
         hyprpaper
         wlsunset
         xdg-desktop-portal-gtk
+        soundwireserver
 
         # GUI apps
         loupe
         mpv
         librewolf
         thunderbird
-        blender
         libresprite
         ardour
         pipewire
