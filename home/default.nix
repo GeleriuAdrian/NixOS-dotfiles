@@ -1,20 +1,4 @@
 { pkgs, ... }:
-let
-  blender-hip =
-    (pkgs.blender.override {
-      rocmSupport = true;
-      rocmPackages = pkgs.rocmPackages;
-    }).overrideAttrs
-      (old: {
-        buildInputs = map (
-          dep:
-          if pkgs.lib.getName dep == "openshadinglanguage" then
-            dep.override { llvmPackages = pkgs.llvmPackages_21; }
-          else
-            dep
-        ) old.buildInputs;
-      });
-in
 {
   home-manager.backupFileExtension = "backup";
   home-manager.useUserPackages = false;
@@ -136,6 +120,19 @@ in
           icon = "steam_icon_412220";
           comment = "Launch DDRaceNetwork from Steam";
           categories = [ "Game" ];
+          terminal = false;
+        };
+
+        blender = {
+          name = "Blender";
+          genericName = "3D Graphics Editor";
+          exec = "/home/ady/bin/blender-hip";
+          icon = "/mnt/data/Apps/Blender/blender-5.2.0-linux-x64/blender.svg";
+          comment = "3D creation suite with HIP rendering";
+          categories = [
+            "Graphics"
+            "3DGraphics"
+          ];
           terminal = false;
         };
       };

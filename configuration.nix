@@ -17,12 +17,33 @@
   # ============================================================
   # NIX
   # ============================================================
+  systemd.tmpfiles.rules = [
+    "L+ /opt/rocm - - - - ${pkgs.rocmPackages.clr}"
+  ];
+
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"
   ];
   nixpkgs.config.allowUnfree = true;
   programs.nix-ld.enable = true;
+  programs.nix-ld.libraries = with pkgs; [
+    stdenv.cc.cc.lib # libstdc++
+    zlib
+    libGL
+    libX11
+    libXext
+    libXi
+    libXfixes
+    libXrender
+    libSM
+    libICE
+    libxkbcommon
+    wayland
+    fontconfig
+    freetype
+    vulkan-loader
+  ];
 
   # ============================================================
   # LOCALE & TIME
